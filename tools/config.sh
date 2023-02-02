@@ -10,7 +10,7 @@ if [ -z $IDF_BRANCH ]; then
 fi
 
 # IDF commit to use
-#IDF_COMMIT=""
+IDF_COMMIT="d6ffee9234522d41ed8af891ea4970817c12452e"
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="master"
