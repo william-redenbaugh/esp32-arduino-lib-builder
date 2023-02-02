@@ -5,6 +5,10 @@ if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
 fi
 
+# The ESP32 IDF repository
+IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
+
+# The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
 	IDF_BRANCH="Tasmota/v5"
 fi
@@ -27,7 +31,7 @@ if [ -z $IDF_TARGET ]; then
 	fi
 fi
 
-# Owner of the target ESP32 Arduino repository
+# Owner of the ESP32 Arduino repository
 AR_USER="tasmota"
 
 # The full name of the repository
