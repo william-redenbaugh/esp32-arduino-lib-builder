@@ -18,11 +18,10 @@ if [ ! -d "$IDF_PATH" ]; then
 	idf_was_installed="1"
 fi
 
-# Next lines redirects ALWAYS to espressif git since this sha1 only exists there!!!
-#if [ "$IDF_COMMIT" ]; then
-#    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
-#    commit_predefined="1"
-#fi
+if [ "$commit_predefined" ]; then
+    echo "Use specified commit $IDF_COMMIT"
+    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
+fi
 
 #
 # UPDATE ESP-IDF TOOLS AND MODULES
