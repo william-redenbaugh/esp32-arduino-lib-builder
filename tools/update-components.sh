@@ -78,18 +78,18 @@ if [ $? -ne 0 ]; then exit 1; fi
 #
 # CLONE/UPDATE ESP-SR
 #
-echo "Updating ESP-SR..."
-if [ ! -d "$AR_COMPS/esp-sr" ]; then
-	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
-else
-	git -C "$AR_COMPS/esp-sr" fetch && \
-	git -C "$AR_COMPS/esp-sr" pull --ff-only
-fi
+#echo "Updating ESP-SR..."
+#if [ ! -d "$AR_COMPS/esp-sr" ]; then
+#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
+#else
+#	git -C "$AR_COMPS/esp-sr" fetch && \
+#	git -C "$AR_COMPS/esp-sr" pull --ff-only
+#fi
 #this is a temp measure to fix build issue
-if [ -f "$AR_COMPS/esp-sr/idf_component.yml" ]; then
-	rm -rf "$AR_COMPS/esp-sr/idf_component.yml"
-fi
-if [ $? -ne 0 ]; then exit 1; fi
+#if [ -f "$AR_COMPS/esp-sr/idf_component.yml" ]; then
+#	rm -rf "$AR_COMPS/esp-sr/idf_component.yml"
+#fi
+#if [ $? -ne 0 ]; then exit 1; fi
 
 #
 # CLONE/UPDATE ESP-DSP
