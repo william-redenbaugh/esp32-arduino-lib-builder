@@ -78,28 +78,16 @@ if [ $? -ne 0 ]; then exit 1; fi
 #
 # CLONE/UPDATE ESP-SR
 #
-#echo "Updating ESP-SR..."
-#if [ ! -d "$AR_COMPS/esp-sr" ]; then
-#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
-#else
-#	git -C "$AR_COMPS/esp-sr" fetch && \
-#	git -C "$AR_COMPS/esp-sr" pull --ff-only
-#fi
-#this is a temp measure to fix build issue
-#if [ -f "$AR_COMPS/esp-sr/idf_component.yml" ]; then
-#	rm -rf "$AR_COMPS/esp-sr/idf_component.yml"
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE ESP-DSP
-#
-echo "Updating ESP-DSP..."
-if [ ! -d "$AR_COMPS/esp-dsp" ]; then
-	git clone $DSP_REPO_URL "$AR_COMPS/esp-dsp"
+echo "Updating ESP-SR..."
+if [ ! -d "$AR_COMPS/esp-sr" ]; then
+	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
 else
-	git -C "$AR_COMPS/esp-dsp" fetch && \
-	git -C "$AR_COMPS/esp-dsp" pull --ff-only
+	git -C "$AR_COMPS/esp-sr" fetch && \
+	git -C "$AR_COMPS/esp-sr" pull --ff-only
+fi
+#this is a temp measure to fix build issue
+if [ -f "$AR_COMPS/esp-sr/idf_component.yml" ]; then
+	rm -rf "$AR_COMPS/esp-sr/idf_component.yml"
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 
@@ -114,6 +102,18 @@ else
 	git -C "$AR_COMPS/esp_littlefs" fetch && \
 	git -C "$AR_COMPS/esp_littlefs" pull --ff-only && \
     git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
+fi
+if [ $? -ne 0 ]; then exit 1; fi
+
+#
+# CLONE/UPDATE ESP-DSP
+#
+echo "Updating ESP-DSP..."
+if [ ! -d "$AR_COMPS/espressif__esp-dsp" ]; then
+	git clone $DSP_REPO_URL "$AR_COMPS/espressif__esp-dsp"
+else
+	git -C "$AR_COMPS/espressif__esp-dsp" fetch && \
+	git -C "$AR_COMPS/espressif__esp-dsp" pull --ff-only
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 
