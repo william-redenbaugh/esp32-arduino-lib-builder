@@ -67,14 +67,14 @@ if [ $? -ne 0 ]; then exit 1; fi
 #
 # CLONE/UPDATE ESP-DL
 #
-echo "Updating ESP-DL..."
-if [ ! -d "$AR_COMPS/esp-dl" ]; then
-	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
-else
-	git -C "$AR_COMPS/esp-dl" fetch && \
-	git -C "$AR_COMPS/esp-dl" pull --ff-only
-fi
-if [ $? -ne 0 ]; then exit 1; fi
+#echo "Updating ESP-DL..."
+#if [ ! -d "$AR_COMPS/esp-dl" ]; then
+#	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
+#else
+#	git -C "$AR_COMPS/esp-dl" fetch && \
+#	git -C "$AR_COMPS/esp-dl" pull --ff-only
+#fi
+#if [ $? -ne 0 ]; then exit 1; fi
 
 #
 # CLONE/UPDATE ESP-SR
