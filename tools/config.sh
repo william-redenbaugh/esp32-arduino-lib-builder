@@ -10,7 +10,7 @@ IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
 
 # The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="release/v5.1"
+	IDF_BRANCH="master"
 fi
 
 # IDF commit to use
