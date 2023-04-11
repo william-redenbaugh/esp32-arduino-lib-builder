@@ -24,7 +24,10 @@ if [ -z $AR_BRANCH ]; then
 		current_branch="$GITHUB_HEAD_REF"
 	fi
 	echo "Current Branch: $current_branch"
-	if [[ "$current_branch" != "master" && `git_branch_exists "$AR_COMPS/arduino" "$current_branch"` == "1" ]]; then
+	# Temporary to get CI working
+	if [[ "$current_branch" == "esp-idf-v5.1" ]]; then
+		export AR_BRANCH="esp-idf-v5.1-libs"
+	elif [[ "$current_branch" != "master" && `git_branch_exists "$AR_COMPS/arduino" "$current_branch"` == "1" ]]; then
 		export AR_BRANCH="$current_branch"
 	else
 		if [ -z "$IDF_COMMIT" ]; then #commit was not specified at build time
@@ -45,7 +48,7 @@ if [ -z $AR_BRANCH ]; then
 fi
 
 if [ "$AR_BRANCH" ]; then
-        echo "AR_BRANCH='$AR_BRANCH'"
+	echo "AR_BRANCH='$AR_BRANCH'"
 	git -C "$AR_COMPS/arduino" checkout "$AR_BRANCH" && \
 	git -C "$AR_COMPS/arduino" fetch && \
 	git -C "$AR_COMPS/arduino" pull --ff-only
@@ -67,30 +70,30 @@ if [ $? -ne 0 ]; then exit 1; fi
 #
 # CLONE/UPDATE ESP-DL
 #
-#echo "Updating ESP-DL..."
-#if [ ! -d "$AR_COMPS/esp-dl" ]; then
-#	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
-#else
-#	git -C "$AR_COMPS/esp-dl" fetch && \
-#	git -C "$AR_COMPS/esp-dl" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
+echo "Updating ESP-DL..."
+if [ ! -d "$AR_COMPS/esp-dl" ]; then
+	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
+else
+	git -C "$AR_COMPS/esp-dl" fetch && \
+	git -C "$AR_COMPS/esp-dl" pull --ff-only
+fi
+if [ $? -ne 0 ]; then exit 1; fi
+#this is a temp measure to fix build issue
+if [ -f "$AR_COMPS/esp-dl/idf_component.yml" ]; then
+	rm -rf "$AR_COMPS/esp-dl/idf_component.yml"
+fi
 
 #
 # CLONE/UPDATE ESP-SR
 #
-#echo "Updating ESP-SR..."
-#if [ ! -d "$AR_COMPS/esp-sr" ]; then
-#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
-#else
-#	git -C "$AR_COMPS/esp-sr" fetch && \
-#	git -C "$AR_COMPS/esp-sr" pull --ff-only
-#fi
-#this is a temp measure to fix build issue
-#if [ -f "$AR_COMPS/esp-sr/idf_component.yml" ]; then
-#	rm -rf "$AR_COMPS/esp-sr/idf_component.yml"
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
+echo "Updating ESP-SR..."
+if [ ! -d "$AR_COMPS/esp-sr" ]; then
+	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
+else
+	git -C "$AR_COMPS/esp-sr" fetch && \
+	git -C "$AR_COMPS/esp-sr" pull --ff-only
+fi
+if [ $? -ne 0 ]; then exit 1; fi
 
 #
 # CLONE/UPDATE ESP-DSP
