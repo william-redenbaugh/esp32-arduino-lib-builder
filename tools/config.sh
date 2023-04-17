@@ -160,4 +160,3 @@ function git_create_pr(){ # git_create_pr <branch> <title>
 	local done_pr=`echo "$git_create_pr_res" | jq -r '.title'`
 	if [ ! "$done_pr" == "" ] && [ ! "$done_pr" == "null" ]; then echo 1; else echo 0; fi
 }
-
