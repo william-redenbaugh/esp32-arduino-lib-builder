@@ -12,7 +12,7 @@ pio_zip_archive_path="dist/framework-arduinoespressif32-$idf_version_string.zip"
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
 cd out
-echo "Creating framework-arduinoespressif32"
+echo "Creating PlatformIO Tasmota framework-arduinoespressif32"
 cp -rf ../components/arduino arduino-esp32
 rm -rf arduino-esp32/docs
 rm -rf arduino-esp32/tests
@@ -26,14 +26,16 @@ rm -rf arduino-esp32/tools/gen_insights_package.py
 rm -rf arduino-esp32/tools/gen_insights_package.exe
 rm -rf arduino-esp32/tools/platformio-build-*.py
 rm -rf arduino-esp32/platform.txt
+rm -rf arduino-esp32/programmers.txt
+rm -rf arduino-esp32/boards.txt
 rm -rf arduino-esp32/package.json
-cp -f platform.txt arduino-esp32/
-cp -Rf tools/sdk arduino-esp32/tools/
+rm -rf arduino-esp32/*.md
+mv -f tools/esp32-arduino-libs/platformio-build-*.py arduino-esp32/tools/
 cp -f tools/gen_esp32part.py arduino-esp32/tools/
-cp -f tools/platformio-build-*.py arduino-esp32/tools/
+cp -Rf tools/esp32-arduino-libs/ arduino-esp32/tools/sdk
 cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
 mv arduino-esp32/ framework-arduinoespressif32/
-# If the framework is as tar.gz is needed uncomment next line
+# If the framework is needed as tar.gz uncomment next line
 # tar --exclude=.* -zcf ../$pio_archive_path framework-arduinoespressif32/
 7z a -mx=9 -tzip -xr'!.*' ../$pio_zip_archive_path framework-arduinoespressif32/
