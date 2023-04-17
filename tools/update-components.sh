@@ -55,6 +55,19 @@ fi
 if [ $? -ne 0 ]; then exit 1; fi
 
 #
+# CLONE/UPDATE ESP32-ARDUINO-LIBS
+#
+if [ ! -d "$IDF_LIBS_DIR" ]; then
+	echo "Cloning esp32-arduino-libs..."
+	git clone "$IDF_LIBS_REPO_URL" "$IDF_LIBS_DIR"
+else
+	echo "Updating esp32-arduino-libs..."
+	git -C "$IDF_LIBS_DIR" fetch && \
+	git -C "$IDF_LIBS_DIR" pull --ff-only
+fi
+if [ $? -ne 0 ]; then exit 1; fi
+
+#
 # CLONE/UPDATE ESP32-CAMERA
 #
 echo "Updating ESP32 Camera..."
