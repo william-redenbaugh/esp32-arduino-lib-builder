@@ -5,6 +5,17 @@ if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
 fi
 
+# The ESP32 IDF repository
+IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
+
+# The IDF branch to use
+if [ -z $IDF_BRANCH ]; then
+	IDF_BRANCH="release/v5.1"
+fi
+
+# IDF commit to use
+#IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
+
 if [ -z $IDF_BRANCH ]; then
 	IDF_BRANCH="release/v5.1"
 fi
@@ -26,16 +37,22 @@ if [ -z $IDF_TARGET ]; then
 fi
 
 # Owner of the target ESP32 Arduino repository
-AR_USER="espressif"
+AR_USER="tasmota"
+
+# The full name of the repository
+AR_REPO="$AR_USER/arduino-esp32"
+
+# Arduino branch to use
+AR_BRANCH="esp-idf-v5.1-libs"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
-IDF_LIBS_REPO_URL="https://github.com/espressif/esp32-arduino-libs.git"
+IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
 	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/espressif/esp32-arduino-libs.git"
+	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
 fi
 
 AR_ROOT="$PWD"
@@ -48,6 +65,20 @@ AR_SDK="$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET"
 PIO_SDK="FRAMEWORK_DIR, \"tools\", \"esp32-arduino-libs\", \"$IDF_TARGET\""
 TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
 IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
+
+AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
+
+if [ "$IDF_COMMIT" ]; then
+    echo "Using specific commit $IDF_COMMIT for IDF"
+    commit_predefined="1"
+else
+    IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+fi
+
+AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+
+rm -rf release-info.txt
+echo "Framework built from IDF branch $IDF_BRANCH commit $IDF_COMMIT and $AR_REPO branch $AR_BRANCH commit $AR_COMMIT" >> release-info.txt
 
 function get_os(){
   	OSBITS=`arch`
@@ -129,4 +160,3 @@ function git_create_pr(){ # git_create_pr <branch> <title>
 	local done_pr=`echo "$git_create_pr_res" | jq -r '.title'`
 	if [ ! "$done_pr" == "" ] && [ ! "$done_pr" == "null" ]; then echo 1; else echo 0; fi
 }
-
