@@ -11,19 +11,18 @@ fi
 # CLONE ESP-IDF
 #
 
-IDF_REPO_URL="https://github.com/espressif/esp-idf.git"
 if [ ! -d "$IDF_PATH" ]; then
-	echo "ESP-IDF is not installed! Installing local copy"
+	echo "ESP-IDF is not installed! Installing from $IDF_REPO_URL branch $IDF_BRANCH"
 	git clone $IDF_REPO_URL -b $IDF_BRANCH
 	idf_was_installed="1"
 fi
 
+if [ "$commit_predefined" ]; then
+    echo "Use specified commit $IDF_COMMIT"
+    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
 if [ "$IDF_TAG" ]; then
     git -C "$IDF_PATH" checkout "tags/$IDF_TAG"
     idf_was_installed="1"
-elif [ "$IDF_COMMIT" ]; then
-    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
-    commit_predefined="1"
 fi
 
 #
@@ -34,6 +33,12 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	git -C $IDF_PATH submodule update --init --recursive
 	$IDF_PATH/install.sh
 fi
+
+#
+# Arduino needs cam_hal.h from esp32-camera in include folder
+#
+# fix me, path is not correct
+#cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$IDF_PATH/components/esp32-camera/driver/include/"
 
 #
 # SETUP ESP-IDF ENV
