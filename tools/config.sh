@@ -16,8 +16,13 @@ fi
 # IDF commit to use
 #IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
 
+if [ -z $IDF_BRANCH ]; then
+	IDF_BRANCH="release/v5.1"
+fi
+
 if [ -z $AR_PR_TARGET_BRANCH ]; then
-	AR_PR_TARGET_BRANCH="master"
+	# Temporary to get CI working. original is master
+	AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
 fi
 
 if [ -z $IDF_TARGET ]; then
@@ -31,7 +36,7 @@ if [ -z $IDF_TARGET ]; then
 	fi
 fi
 
-# Owner of the ESP32 Arduino repository
+# Owner of the target ESP32 Arduino repository
 AR_USER="tasmota"
 
 # The full name of the repository
@@ -40,9 +45,14 @@ AR_REPO="$AR_USER/arduino-esp32"
 # Arduino branch to use
 AR_BRANCH="esp-idf-v5.1-libs"
 
+# The full name of the repository
+AR_REPO="$AR_USER/arduino-esp32"
+
 AR_REPO_URL="https://github.com/$AR_REPO.git"
+IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
 	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
 fi
 
 AR_ROOT="$PWD"
@@ -51,6 +61,11 @@ AR_OUT="$AR_ROOT/out"
 AR_TOOLS="$AR_OUT/tools"
 AR_PLATFORM_TXT="$AR_OUT/platform.txt"
 AR_GEN_PART_PY="$AR_TOOLS/gen_esp32part.py"
+AR_SDK="$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET"
+PIO_SDK="FRAMEWORK_DIR, \"tools\", \"esp32-arduino-libs\", \"$IDF_TARGET\""
+TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
+IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
+
 AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
 
 if [ "$IDF_COMMIT" ]; then
@@ -95,7 +110,7 @@ export SED="sed"
 export SSTAT="stat -c %s"
 
 if [[ "$AR_OS" == "macos" ]]; then
-        if ! [ -x "$(command -v gsed)" ]; then
+	if ! [ -x "$(command -v gsed)" ]; then
 		echo "ERROR: gsed is not installed! Please install gsed first. ex. brew install gsed"
 		exit 1
 	fi
@@ -120,3 +135,29 @@ function git_branch_exists(){ # git_branch_exists <repo-path> <branch-name>
 	local branch_found=`git -C "$repo_path" ls-remote --heads origin "$branch_name"`
 	if [ -n "$branch_found" ]; then echo 1; else echo 0; fi
 }
+
+function git_pr_exists(){ # git_pr_exists <branch-name>
+	local pr_num=`curl -s -k -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw+json" "https://api.github.com/repos/$AR_REPO/pulls?head=$AR_USER:$1&state=open" | jq -r '.[].number'`
+	if [ ! "$pr_num" == "" ] && [ ! "$pr_num" == "null" ]; then echo 1; else echo 0; fi
+}
+
+function git_create_pr(){ # git_create_pr <branch> <title>
+	local pr_branch="$1"
+	local pr_title="$2"
+	local pr_target="$3"
+	local pr_body=""
+	pr_body+="esp-idf: "$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)" "$(git -C "$IDF_PATH" rev-parse --short HEAD)"\r\n"
+	for component in `ls "$AR_COMPS"`; do
+		if [ ! $component == "arduino" ]; then
+			if [ -d "$AR_COMPS/$component/.git" ] || [ -d "$AR_COMPS/$component/.github" ]; then
+				pr_body+="$component: "$(git -C "$AR_COMPS/$component" symbolic-ref --short HEAD || git -C "$AR_COMPS/$component" tag --points-at HEAD)" "$(git -C "$AR_COMPS/$component" rev-parse --short HEAD)"\r\n"
+			fi
+		fi
+	done
+	pr_body+="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)"\r\n"
+	local pr_data="{\"title\": \"$pr_title\", \"body\": \"$pr_body\", \"head\": \"$AR_USER:$pr_branch\", \"base\": \"$pr_target\"}"
+	git_create_pr_res=`echo "$pr_data" | curl -k -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw+json" --data @- "https://api.github.com/repos/$AR_REPO/pulls"`
+	local done_pr=`echo "$git_create_pr_res" | jq -r '.title'`
+	if [ ! "$done_pr" == "" ] && [ ! "$done_pr" == "null" ]; then echo 1; else echo 0; fi
+}
+
