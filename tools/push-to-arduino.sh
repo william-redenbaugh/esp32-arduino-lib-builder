@@ -108,7 +108,7 @@ if [ $LIBS_HAS_COMMIT == "0" ]; then
 			exit 1
 		fi
 		IDF_LIBS_COMMIT=`git rev-parse --verify HEAD`
-		IDF_LIBS_DL_URL="https://codeload.github.com/espressif/esp32-arduino-libs/zip/$IDF_LIBS_COMMIT"
+		IDF_LIBS_DL_URL="https://codeload.github.com/tasmota/esp32-arduino-libs/zip/$IDF_LIBS_COMMIT"
 		# ToDo: this URL needs to get into Arduino's package.json
 
 		# Download the file
