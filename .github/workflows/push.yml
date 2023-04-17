@@ -17,8 +17,6 @@ jobs:
       run: bash ./tools/prepare-ci.sh
     - name: Build Arduino Libs
       run: bash ./build.sh
-    - name: Display files
-      run: ls -R ./*
     - name: Release
       uses: jason2866/action-gh-release@v1.2
       with:
