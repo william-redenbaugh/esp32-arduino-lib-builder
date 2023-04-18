@@ -36,8 +36,8 @@ fi
 if [ -e "$AR_SDK/$MEMCONF" ]; then
 	rm -rf "$AR_SDK/$MEMCONF"
 fi
-if [ -e "$AR_SDK/platformio-build.py" ]; then
-	rm -rf "$AR_SDK/platformio-build.py"
+if [ -e "$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET/platformio-build-*.py" ]; then
+	rm -rf "$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET/platformio-build-*.py"
 fi
 mkdir -p "$AR_SDK"
 
@@ -282,7 +282,7 @@ done
 mkdir -p "$AR_SDK"
 
 # start generation of platformio-build.py
-AR_PLATFORMIO_PY="$AR_SDK/platformio-build.py"
+AR_PLATFORMIO_PY="$AR_TOOLS/esp32-arduino-libs/platformio-build-$IDF_TARGET.py"
 cat configs/pio_start.txt > "$AR_PLATFORMIO_PY"
 
 echo "    ASFLAGS=[" >> "$AR_PLATFORMIO_PY"
