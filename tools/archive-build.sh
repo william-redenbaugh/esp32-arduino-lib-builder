@@ -21,6 +21,7 @@ rm -rf arduino-esp32/libraries/Insights
 rm -rf arduino-esp32/package
 rm -rf arduino-esp32/tools/esp32-arduino-libs
 rm -rf arduino-esp32/tools/esptool.py
+rm -rf arduino-esp32/tools/ide-debug
 rm -rf arduino-esp32/tools/gen_esp32part.py
 rm -rf arduino-esp32/tools/gen_insights_package.py
 rm -rf arduino-esp32/tools/gen_insights_package.exe
