@@ -19,20 +19,18 @@ rm -rf arduino-esp32/tests
 rm -rf arduino-esp32/libraries/RainMaker
 rm -rf arduino-esp32/libraries/Insights
 rm -rf arduino-esp32/package
-rm -rf arduino-esp32/tools/sdk
+rm -rf arduino-esp32/tools/esp32-arduino-libs
 rm -rf arduino-esp32/tools/esptool.py
 rm -rf arduino-esp32/tools/gen_esp32part.py
 rm -rf arduino-esp32/tools/gen_insights_package.py
 rm -rf arduino-esp32/tools/gen_insights_package.exe
-rm -rf arduino-esp32/tools/platformio-build-*.py
 rm -rf arduino-esp32/platform.txt
 rm -rf arduino-esp32/programmers.txt
 rm -rf arduino-esp32/boards.txt
 rm -rf arduino-esp32/package.json
 rm -rf arduino-esp32/*.md
-mv -f tools/esp32-arduino-libs/platformio-build-*.py arduino-esp32/tools/
 cp -f tools/gen_esp32part.py arduino-esp32/tools/
-cp -Rf tools/esp32-arduino-libs/ arduino-esp32/tools/sdk
+cp -Rf tools/esp32-arduino-libs arduino-esp32/tools/
 cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
 mv arduino-esp32/ framework-arduinoespressif32/
