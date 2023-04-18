@@ -37,8 +37,7 @@ fi
 #
 # Arduino needs cam_hal.h from esp32-camera in include folder
 #
-# fix me, path is not correct
-#cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$IDF_PATH/components/esp32-camera/driver/include/"
+cp "AR_COMPS$/esp32-camera/driver/private_include/cam_hal.h" "AR_COMPS$/esp32-camera/driver/include/"
 
 #
 # SETUP ESP-IDF ENV

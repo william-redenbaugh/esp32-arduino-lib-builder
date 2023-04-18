@@ -66,8 +66,6 @@ PIO_SDK="FRAMEWORK_DIR, \"tools\", \"sdk\", \"$IDF_TARGET\""
 TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
 IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 
-AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
-
 if [ "$IDF_COMMIT" ]; then
     echo "Using specific commit $IDF_COMMIT for IDF"
 else
