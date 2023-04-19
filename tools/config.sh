@@ -16,10 +16,6 @@ fi
 # IDF commit to use
 #IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
 
-if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="release/v5.1"
-fi
-
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	# Temporary to get CI working. original is master
 	AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
