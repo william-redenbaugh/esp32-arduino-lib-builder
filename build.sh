@@ -14,7 +14,7 @@ TARGET="all"
 BUILD_TYPE="all"
 SKIP_ENV=0
 COPY_OUT=0
-DEPLOY_OUT=1
+# DEPLOY_OUT=1
 if [ -z $DEPLOY_OUT ]; then
     DEPLOY_OUT=0
 fi
