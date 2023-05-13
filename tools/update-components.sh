@@ -96,30 +96,6 @@ if [ -f "$AR_COMPS/esp-dl/idf_component.yml" ]; then
 fi
 
 #
-# CLONE/UPDATE ESP-SR
-#
-#echo "Updating ESP-SR..."
-#if [ ! -d "$AR_COMPS/esp-sr" ]; then
-#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
-#else
-#	git -C "$AR_COMPS/esp-sr" fetch && \
-#	git -C "$AR_COMPS/esp-sr" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE ESP-DSP
-#
-echo "Updating ESP-DSP..."
-if [ ! -d "$AR_COMPS/espressif__esp-dsp" ]; then
-	git clone $DSP_REPO_URL "$AR_COMPS/espressif__esp-dsp"
-else
-	git -C "$AR_COMPS/espressif__esp-dsp" fetch && \
-	git -C "$AR_COMPS/espressif__esp-dsp" pull --ff-only
-fi
-if [ $? -ne 0 ]; then exit 1; fi
-
-#
 # CLONE/UPDATE ESP-LITTLEFS
 #
 echo "Updating ESP-LITTLEFS..."
@@ -144,3 +120,34 @@ else
 	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" pull --ff-only
 fi
 if [ $? -ne 0 ]; then exit 1; fi
+
+##
+## CLONE/UPDATE ESP-SR
+##
+#SR_REPO_URL="https://github.com/espressif/esp-sr.git"
+#echo "Updating ESP-SR..."
+#if [ ! -d "$AR_COMPS/esp-sr" ]; then
+#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
+#	mv "$AR_COMPS/esp-sr/CMakeLists.txt" "$AR_COMPS/esp-sr/CMakeListsOld.txt"
+#	echo "if(IDF_TARGET STREQUAL \"esp32s3\")" > "$AR_COMPS/esp-sr/CMakeLists.txt"
+#	cat "$AR_COMPS/esp-sr/CMakeListsOld.txt" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
+#	echo "endif()" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
+#else
+#	git -C "$AR_COMPS/esp-sr" fetch && \
+#	git -C "$AR_COMPS/esp-sr" pull --ff-only
+#fi
+#if [ $? -ne 0 ]; then exit 1; fi
+
+# #
+# # CLONE/UPDATE ESP-DSP
+# #
+# DSP_REPO_URL="https://github.com/espressif/esp-dsp.git"
+# echo "Updating ESP-DSP..."
+# if [ ! -d "$AR_COMPS/espressif__esp-dsp" ]; then
+# 	git clone $DSP_REPO_URL "$AR_COMPS/espressif__esp-dsp"
+# else
+# 	git -C "$AR_COMPS/espressif__esp-dsp" fetch && \
+# 	git -C "$AR_COMPS/espressif__esp-dsp" pull --ff-only
+# fi
+# if [ $? -ne 0 ]; then exit 1; fi
+
