@@ -4,8 +4,6 @@ source ./tools/config.sh
 
 CAMERA_REPO_URL="https://github.com/espressif/esp32-camera.git"
 DL_REPO_URL="https://github.com/espressif/esp-dl.git"
-SR_REPO_URL="https://github.com/espressif/esp-sr.git"
-DSP_REPO_URL="https://github.com/espressif/esp-dsp.git"
 LITTLEFS_REPO_URL="https://github.com/joltwallet/esp_littlefs.git"
 TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
 
