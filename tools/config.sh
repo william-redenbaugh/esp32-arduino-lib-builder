@@ -42,7 +42,6 @@ AR_REPO="$AR_USER/arduino-esp32"
 AR_BRANCH="esp-idf-v5.1-libs"
 
 # The full name of the repository
-# Arduino commit to use
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino commit to use
