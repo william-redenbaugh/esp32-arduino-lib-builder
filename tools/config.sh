@@ -21,9 +21,6 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
 fi
 
-# IDF commit to use
-#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
-
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
 		IDF_TARGET=`cat sdkconfig | grep CONFIG_IDF_TARGET= | cut -d'"' -f2`
