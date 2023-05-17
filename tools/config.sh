@@ -21,6 +21,9 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
 fi
 
+# IDF commit to use
+#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
+
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
 		IDF_TARGET=`cat sdkconfig | grep CONFIG_IDF_TARGET= | cut -d'"' -f2`
@@ -42,7 +45,11 @@ AR_REPO="$AR_USER/arduino-esp32"
 AR_BRANCH="esp-idf-v5.1-libs"
 
 # The full name of the repository
+# Arduino commit to use
 AR_REPO="$AR_USER/arduino-esp32"
+
+# Arduino commit to use
+#$AR_COMMIT =
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
@@ -64,17 +71,24 @@ IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 
 if [ "$IDF_COMMIT" ]; then
     	echo "Using IDF commit $IDF_COMMIT"
+    echo "Using commit $IDF_COMMIT for IDF"
 	export IDF_COMMIT
+else
 	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
+    IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 elif [ -d "$IDF_PATH" ]; then
 	export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
 	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
 fi
 
-AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+if [ "$AR_COMMIT" ]; then
+    echo "Using commit $AR_COMMIT for Arduino"
+else
+    AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+fi
 
 rm -rf release-info.txt
-echo "Framework built from IDF branch $IDF_BRANCH commit $IDF_COMMIT and $AR_REPO branch $AR_BRANCH commit $AR_COMMIT" >> release-info.txt
+echo "Framework built from Tasmota IDF branch $IDF_BRANCH commit $IDF_COMMIT and $AR_REPO branch $AR_BRANCH commit $AR_COMMIT" >> release-info.txt
 
 function get_os(){
   	OSBITS=`arch`
