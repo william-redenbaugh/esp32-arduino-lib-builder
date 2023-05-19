@@ -68,9 +68,9 @@ IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 if [ "$IDF_COMMIT" ]; then
     	echo "Using IDF commit $IDF_COMMIT"
 	export IDF_COMMIT
-else
+elif [ -d "$IDF_PATH" ]; then
+	export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
 	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
-        export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 fi
 
 if [ "$AR_COMMIT" ]; then
