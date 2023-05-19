@@ -71,9 +71,6 @@ if [ "$IDF_COMMIT" ]; then
 else
 	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
         export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
-elif [ -d "$IDF_PATH" ]; then
-	export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
 fi
 
 if [ "$AR_COMMIT" ]; then
