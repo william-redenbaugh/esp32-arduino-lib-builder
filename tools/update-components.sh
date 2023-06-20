@@ -83,6 +83,11 @@ if [ $? -ne 0 ]; then exit 1; fi
 #echo "Updating ESP-DL..."
 #if [ ! -d "$AR_COMPS/esp-dl" ]; then
 #	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
+#	mv "$AR_COMPS/esp-dl/CMakeLists.txt" "$AR_COMPS/esp-dl/CMakeListsOld.txt"
+#	echo "idf_build_get_property(target IDF_TARGET)" > "$AR_COMPS/esp-dl/CMakeLists.txt"
+#	echo "if(NOT \${IDF_TARGET} STREQUAL \"esp32c6\")" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
+#	cat "$AR_COMPS/esp-dl/CMakeListsOld.txt" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
+#	echo "endif()" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
 #else
 #	git -C "$AR_COMPS/esp-dl" fetch && \
 #	git -C "$AR_COMPS/esp-dl" pull --ff-only
@@ -130,6 +135,7 @@ if [ $? -ne 0 ]; then exit 1; fi
 #	echo "if(IDF_TARGET STREQUAL \"esp32s3\")" > "$AR_COMPS/esp-sr/CMakeLists.txt"
 #	cat "$AR_COMPS/esp-sr/CMakeListsOld.txt" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
 #	echo "endif()" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
+#	echo "  - esp32c6" >> "$AR_COMPS/esp-sr/idf_component.yml"
 #else
 #	git -C "$AR_COMPS/esp-sr" fetch && \
 #	git -C "$AR_COMPS/esp-sr" pull --ff-only
