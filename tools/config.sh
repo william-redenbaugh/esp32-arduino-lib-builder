@@ -18,7 +18,7 @@ fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	# Temporary to get CI working. original is master
-	AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
+	AR_PR_TARGET_BRANCH="feature/esp32c6-support"
 fi
 
 if [ -z $IDF_TARGET ]; then
