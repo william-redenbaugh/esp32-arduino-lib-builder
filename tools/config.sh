@@ -39,7 +39,7 @@ AR_USER="tasmota"
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino branch to use
-AR_BRANCH="esp-idf-v5.1-libs"
+AR_BRANCH="feature/esp32c6-support"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
