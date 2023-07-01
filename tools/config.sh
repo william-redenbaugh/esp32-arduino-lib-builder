@@ -18,7 +18,7 @@ fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	# Temporary to get CI working. original is master
-	AR_PR_TARGET_BRANCH="feature/esp32c6-support"
+	AR_PR_TARGET_BRANCH="release/v5.1"
 fi
 
 if [ -z $IDF_TARGET ]; then
@@ -39,7 +39,7 @@ AR_USER="tasmota"
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino branch to use
-AR_BRANCH="feature/esp32c6-support"
+AR_BRANCH="esp-idf-v5.1-libs"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
