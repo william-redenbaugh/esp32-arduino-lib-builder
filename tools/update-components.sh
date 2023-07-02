@@ -77,27 +77,6 @@ else
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 
-##
-## CLONE/UPDATE ESP-DL
-##
-#echo "Updating ESP-DL..."
-#if [ ! -d "$AR_COMPS/esp-dl" ]; then
-#	git clone $DL_REPO_URL "$AR_COMPS/esp-dl"
-#	mv "$AR_COMPS/esp-dl/CMakeLists.txt" "$AR_COMPS/esp-dl/CMakeListsOld.txt"
-#	echo "idf_build_get_property(target IDF_TARGET)" > "$AR_COMPS/esp-dl/CMakeLists.txt"
-#	echo "if(NOT \${IDF_TARGET} STREQUAL \"esp32c6\")" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
-#	cat "$AR_COMPS/esp-dl/CMakeListsOld.txt" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
-#	echo "endif()" >> "$AR_COMPS/esp-dl/CMakeLists.txt"
-#else
-#	git -C "$AR_COMPS/esp-dl" fetch && \
-#	git -C "$AR_COMPS/esp-dl" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-##this is a temp measure to fix build issue
-#if [ -f "$AR_COMPS/esp-dl/idf_component.yml" ]; then
-#	rm -rf "$AR_COMPS/esp-dl/idf_component.yml"
-#fi
-
 #
 # CLONE/UPDATE ESP-LITTLEFS
 #
@@ -123,35 +102,3 @@ else
 	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" pull --ff-only
 fi
 if [ $? -ne 0 ]; then exit 1; fi
-
-##
-## CLONE/UPDATE ESP-SR
-##
-#SR_REPO_URL="https://github.com/espressif/esp-sr.git"
-#echo "Updating ESP-SR..."
-#if [ ! -d "$AR_COMPS/esp-sr" ]; then
-#	git clone $SR_REPO_URL "$AR_COMPS/esp-sr"
-#	mv "$AR_COMPS/esp-sr/CMakeLists.txt" "$AR_COMPS/esp-sr/CMakeListsOld.txt"
-#	echo "if(IDF_TARGET STREQUAL \"esp32s3\")" > "$AR_COMPS/esp-sr/CMakeLists.txt"
-#	cat "$AR_COMPS/esp-sr/CMakeListsOld.txt" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
-#	echo "endif()" >> "$AR_COMPS/esp-sr/CMakeLists.txt"
-#	echo "  - esp32c6" >> "$AR_COMPS/esp-sr/idf_component.yml"
-#else
-#	git -C "$AR_COMPS/esp-sr" fetch && \
-#	git -C "$AR_COMPS/esp-sr" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-# #
-# # CLONE/UPDATE ESP-DSP
-# #
-# DSP_REPO_URL="https://github.com/espressif/esp-dsp.git"
-# echo "Updating ESP-DSP..."
-# if [ ! -d "$AR_COMPS/espressif__esp-dsp" ]; then
-# 	git clone $DSP_REPO_URL "$AR_COMPS/espressif__esp-dsp"
-# else
-# 	git -C "$AR_COMPS/espressif__esp-dsp" fetch && \
-# 	git -C "$AR_COMPS/espressif__esp-dsp" pull --ff-only
-# fi
-# if [ $? -ne 0 ]; then exit 1; fi
-
