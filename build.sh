@@ -14,6 +14,7 @@ TARGET="all"
 BUILD_TYPE="all"
 SKIP_ENV=0
 COPY_OUT=0
+ARCHIVE_OUT=0
 if [ -z $DEPLOY_OUT ]; then
     DEPLOY_OUT=0
 fi
@@ -24,6 +25,7 @@ function print_help() {
     echo "       -A     Set which branch of arduino-esp32 to be used for compilation"
     echo "       -I     Set which branch of ESP-IDF to be used for compilation"
     echo "       -i     Set which commit of ESP-IDF to be used for compilation"
+    echo "       -e     Archive the build to dist"
     echo "       -d     Deploy the build to github arduino-esp32"
     echo "       -c     Set the arduino-esp32 folder to copy the result to. ex. '$HOME/Arduino/hardware/espressif/esp32'"
     echo "       -t     Set the build target(chip). ex. 'esp32s3'"
@@ -32,13 +34,16 @@ function print_help() {
     exit 1
 }
 
-while getopts ":A:I:i:c:t:b:sd" opt; do
+while getopts ":A:I:i:c:t:b:sde" opt; do
     case ${opt} in
         s )
             SKIP_ENV=1
             ;;
         d )
             DEPLOY_OUT=1
+            ;;
+        e )
+            ARCHIVE_OUT=1
             ;;
         c )
             export ESP32_ARDUINO="$OPTARG"
@@ -81,10 +86,16 @@ done
 shift $((OPTIND -1))
 CONFIGS=$@
 
+mkdir -p dist
+
 if [ $SKIP_ENV -eq 0 ]; then
     echo "* Installing/Updating ESP-IDF and all components..."
     # update components from git
     ./tools/update-components.sh
+    if [ $? -ne 0 ]; then exit 1; fi
+
+    # install arduino component
+    ./tools/install-arduino.sh
     if [ $? -ne 0 ]; then exit 1; fi
 
     # install esp-idf
@@ -230,13 +241,14 @@ if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
+# push changes to esp32-arduino-libs and create pull request into arduino-esp32
 if [ $DEPLOY_OUT -eq 1 ]; then
     ./tools/push-to-arduino.sh
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
 # archive the build
-if [ "$BUILD_TYPE" = "all" ]; then
-    ./tools/archive-build.sh
+if [ $ARCHIVE_OUT -eq 1 ]; then
+    ./tools/archive-build.sh "$TARGET"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
