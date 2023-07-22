@@ -31,6 +31,12 @@ fi
 # Owner of the target ESP32 Arduino repository
 AR_USER="tasmota"
 
+# Arduino branch to use
+AR_BRANCH="idf-v5.1-c2"
+
+# Arduino commit to use
+#$AR_COMMIT =
+
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
 IDF_REPO="$AR_USER/esp-idf"
