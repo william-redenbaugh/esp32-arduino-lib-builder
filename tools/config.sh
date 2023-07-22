@@ -2,34 +2,30 @@
 
 
 if [ -z $IDF_PATH ]; then
-	export IDF_PATH="$PWD/esp-idf"
+    export IDF_PATH="$PWD/esp-idf"
 fi
 
-# The ESP32 IDF repository
-IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
-
-# The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="release/v5.1"
+    IDF_BRANCH="release/v5.1"
 fi
 
 # IDF commit to use
 #IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
-	# Temporary to get CI working. original is master
-	AR_PR_TARGET_BRANCH="release/v5.1"
+    # Temporary to get CI working. original is master
+    AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
 fi
 
 if [ -z $IDF_TARGET ]; then
-	if [ -f sdkconfig ]; then
-		IDF_TARGET=`cat sdkconfig | grep CONFIG_IDF_TARGET= | cut -d'"' -f2`
-		if [ "$IDF_TARGET" = "" ]; then
-			IDF_TARGET="esp32"
-		fi
-	else
-		IDF_TARGET="esp32"
-	fi
+    if [ -f sdkconfig ]; then
+        IDF_TARGET=`cat sdkconfig | grep CONFIG_IDF_TARGET= | cut -d'"' -f2`
+        if [ "$IDF_TARGET" = "" ]; then
+            IDF_TARGET="esp32"
+        fi
+    else
+        IDF_TARGET="esp32"
+    fi
 fi
 
 # Owner of the target ESP32 Arduino repository
@@ -37,21 +33,15 @@ AR_USER="tasmota"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
-
-# Arduino branch to use
-AR_BRANCH="esp-idf-v5.1-libs"
-
-# The full name of the repository
-AR_REPO="$AR_USER/arduino-esp32"
-
-# Arduino commit to use
-#$AR_COMMIT =
+IDF_REPO="$AR_USER/esp-idf"
+AR_LIBS_REPO="$AR_USER/esp32-arduino-libs"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
-IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
+IDF_REPO_URL="https://github.com/$IDF_REPO.git"
+AR_LIBS_REPO_URL="https://github.com/$AR_LIBS_REPO.git"
 if [ -n $GITHUB_TOKEN ]; then
-	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
+    AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+    AR_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
 fi
 
 AR_ROOT="$PWD"
