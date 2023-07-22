@@ -248,7 +248,7 @@ if [ $DEPLOY_OUT -eq 1 ]; then
 fi
 
 # archive the build
-if [ $ARCHIVE_OUT -eq 1 ]; then
-    ./tools/archive-build.sh "$TARGET"
+if [ "$BUILD_TYPE" = "all" ]; then
+    ./tools/archive-build.sh
     if [ $? -ne 0 ]; then exit 1; fi
 fi
