@@ -66,7 +66,49 @@
 				["qio","80m"],
 				["dio","80m"],
 				["qio","40m"],
-				["qio","40m"]
+				["dio","40m"]
+			],
+			"mem_variants":[
+				["dio","80m"]
+			]
+		},
+		{
+			"target": "esp32c3",
+			"features":[],
+			"idf_libs":["qio","80m"],
+			"bootloaders":[
+				["qio","80m"],
+				["dio","80m"],
+				["qio","40m"],
+				["dio","40m"]
+			],
+			"mem_variants":[
+				["dio","80m"]
+			]
+		},
+		{
+			"target": "esp32",
+			"features":["qio_ram"],
+			"idf_libs":["qio","80m"],
+			"bootloaders":[
+				["qio","80m"],
+				["dio","80m"],
+				["qio","40m"],
+				["dio","40m"]
+			],
+			"mem_variants":[
+				["dio","80m"]
+			]
+		},
+		{
+			"target": "esp32s2",
+			"features":["qio_ram"],
+			"idf_libs":["qio","80m"],
+			"bootloaders":[
+				["qio","80m"],
+				["dio","80m"],
+				["qio","40m"],
+				["dio","40m"]
 			],
 			"mem_variants":[
 				["dio","80m"]
@@ -74,7 +116,7 @@
 		},
 		{
 			"target": "esp32s3",
-			"features":["esp_sr"],
+			"features":[],
 			"idf_libs":["qio","80m","opi_ram"],
 			"bootloaders":[
 				["qio","120m","qio_ram"],
@@ -87,49 +129,6 @@
 				["qio","80m","qio_ram"],
 				["opi","80m","opi_ram"],
 				["opi","80m","qio_ram"]
-			]
-		},
-		{
-			"target": "esp32s2",
-			"features":["qio_ram"],
-			"idf_libs":["dio","80m"],
-			"bootloaders":[
-				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
-			],
-			"mem_variants":[
-				["qio","80m"]
-			]
-		},
-		{
-			"target": "esp32c3",
-			"features":["qio_ram"],
-			"idf_libs":["dio","80m"],
-			"bootloaders":[
-				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
-			],
-			"mem_variants":[
-				["qio","80m"]
-			]
-		},
-		{
-			"target": "esp32",
-			"features":["qio_ram"],
-			"idf_libs":["dio","40m"],
-			"bootloaders":[
-				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
-			],
-			"mem_variants":[
-				["dio","80m"],
-				["qio","80m"]
 			]
 		}
 	]
