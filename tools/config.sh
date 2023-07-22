@@ -9,9 +9,6 @@ if [ -z $IDF_BRANCH ]; then
     IDF_BRANCH="release/v5.1"
 fi
 
-# IDF commit to use
-#IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
-
 if [ -z $AR_PR_TARGET_BRANCH ]; then
     # Temporary to get CI working. original is master
     AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
@@ -32,7 +29,12 @@ fi
 AR_USER="tasmota"
 
 # Arduino branch to use
-AR_BRANCH="idf-v5.1-c2"
+if [ -z $AR_BRANCH ]; then
+    AR_BRANCH="idf-v5.1-c2"
+fi
+
+# IDF commit to use
+#IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
 
 # Arduino commit to use
 #$AR_COMMIT =
