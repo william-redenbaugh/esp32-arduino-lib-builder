@@ -37,7 +37,7 @@ fi
 #IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
 
 # Arduino commit to use
-#$AR_COMMIT =
+#AR_COMMIT=""
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
