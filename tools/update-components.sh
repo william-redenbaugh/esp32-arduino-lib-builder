@@ -19,16 +19,23 @@ fi
 if [ $? -ne 0 ]; then exit 1; fi
 
 #
-# CLONE/UPDATE ESP-LITTLEFS
+# Arduino needs cam_hal.h from esp32-camera in include folder
+#
+cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$AR_COMPS/esp32-camera/driver/include/"
+
+#
+# CLONE/UPDATE ESP-LITTLEFS v1.5.5 commit 9eeac09...
 #
 echo "Updating ESP-LITTLEFS..."
 if [ ! -d "$AR_COMPS/esp_littlefs" ]; then
-	git clone $LITTLEFS_REPO_URL "$AR_COMPS/esp_littlefs" && \
-    git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
+	git clone $LITTLEFS_REPO_URL "$AR_COMPS/esp_littlefs"
+ 	git -C "$AR_COMPS/esp_littlefs" checkout 9eeac09c9c250643a32df47ea870dae2dd042648
+        git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
 else
-	git -C "$AR_COMPS/esp_littlefs" fetch && \
-	git -C "$AR_COMPS/esp_littlefs" pull --ff-only && \
-    git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
+	git -C "$AR_COMPS/esp_littlefs" fetch
+	git -C "$AR_COMPS/esp_littlefs" pull --ff-only
+        git -C "$AR_COMPS/esp_littlefs" checkout 9eeac09c9c250643a32df47ea870dae2dd042648
+        git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 

@@ -48,14 +48,24 @@ fi
 if [ $? -ne 0 ]; then exit 1; fi
 
 #
+# remove libraries not needed for Tasmota
+#
+rm -rf "$AR_COMPS/arduino/libraries/RainMaker"
+rm -rf "$AR_COMPS/arduino/libraries/Insights"
+rm -rf "$AR_COMPS/arduino/libraries/BLE"
+rm -rf "$AR_COMPS/arduino/libraries/SimpleBLE"
+rm -rf "$AR_COMPS/arduino/libraries/WiFiProv"
+rm -rf "$AR_COMPS/arduino/libraries/ESP32"
+
+#
 # CLONE/UPDATE ESP32-ARDUINO-LIBS
 #
-if [ ! -d "$IDF_LIBS_DIR" ]; then
-	echo "Cloning esp32-arduino-libs..."
-	git clone "$AR_LIBS_REPO_URL" "$IDF_LIBS_DIR"
-else
-	echo "Updating esp32-arduino-libs..."
-	git -C "$IDF_LIBS_DIR" fetch && \
-	git -C "$IDF_LIBS_DIR" pull --ff-only
-fi
-if [ $? -ne 0 ]; then exit 1; fi
+#if [ ! -d "$IDF_LIBS_DIR" ]; then
+#	echo "Cloning esp32-arduino-libs..."
+#	git clone "$AR_LIBS_REPO_URL" "$IDF_LIBS_DIR"
+#else
+#	echo "Updating esp32-arduino-libs..."
+#	git -C "$IDF_LIBS_DIR" fetch && \
+#	git -C "$IDF_LIBS_DIR" pull --ff-only
+#fi
+#if [ $? -ne 0 ]; then exit 1; fi
