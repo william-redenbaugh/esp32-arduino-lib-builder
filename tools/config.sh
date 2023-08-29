@@ -30,7 +30,7 @@ AR_USER="tasmota"
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="esp-idf-v5.1-c2"
+    AR_BRANCH="feature/eth_spi"
 fi
 
 # IDF commit to use
