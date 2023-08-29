@@ -1,5 +1,4 @@
-name: Arduino IDF 5.1 without DSP and MP3
-
+name: Arduino IDF 5.1 feature/eth_spi
 on:
   workflow_dispatch:  # Manually start a workflow
 
