@@ -1,4 +1,4 @@
-name: Arduino IDF 5.1 feature/eth_spi
+name: Arduino IDF 5.1 feature/eth_spi -> with IDF Patch
 on:
   workflow_dispatch:  # Manually start a workflow
 
