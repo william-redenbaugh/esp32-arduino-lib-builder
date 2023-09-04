@@ -39,6 +39,11 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	cd $IDF_PATH
 	patch -p1 -i ../patches/spi_eth.diff
 	cd -
+
+	# Patch espressif nimble driver to support esp-nimble-cpp from h2zero
+	cd $IDF_PATH
+	patch -p1 -i ../patches/nimble.diff
+	cd - 
 fi
 
 #
