@@ -159,7 +159,7 @@ echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/
 rm -rf release-info.txt
 IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
-echo "Framework built from Tasmota IDF branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
+echo "Framework built from $IDF_REPO branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
 
 
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
