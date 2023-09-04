@@ -33,8 +33,8 @@ if [ -z $AR_BRANCH ]; then
     AR_BRANCH="feature/eth_spi"
 fi
 
-# IDF commit to use
-#IDF_COMMIT="cf913a00e34d61adeee0dc52414a9e10c9b3737e"
+# IDF commit to use / Nimble fails in actual release/v5.1
+IDF_COMMIT="707b7039850844173e46eb634081a37bbbadaa9b"
 
 # Arduino commit to use
 #AR_COMMIT=""
