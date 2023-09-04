@@ -155,6 +155,13 @@ done
 component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
 echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
 
+# Add release-info
+rm -rf release-info.txt
+IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+echo "Framework built from Tasmota IDF branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
+
+
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
 for target_json in `jq -c '.targets[]' configs/builds.json`; do
     target=$(echo "$target_json" | jq -c '.target' | tr -d '"')
