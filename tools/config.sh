@@ -34,7 +34,7 @@ if [ -z $AR_BRANCH ]; then
 fi
 
 # IDF commit to use / Nimble fails in actual release/v5.1
-IDF_COMMIT="707b7039850844173e46eb634081a37bbbadaa9b"
+#IDF_COMMIT="707b7039850844173e46eb634081a37bbbadaa9b"
 
 # Arduino commit to use
 #AR_COMMIT=""
