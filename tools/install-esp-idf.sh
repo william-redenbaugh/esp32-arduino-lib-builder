@@ -41,9 +41,10 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	cd -
 
 	# Patch espressif nimble driver to support esp-nimble-cpp from h2zero
-	cd $IDF_PATH
-	patch -p1 -i ../patches/nimble.diff
-	cd - 
+        # Not needed anymore, fixed with https://github.com/tasmota/esp-idf/commit/9d8af9748b54d4b2ef565ca1675f1b5de62d80e6
+	#cd $IDF_PATH
+	#patch -p1 -i ../patches/nimble.diff
+	#cd - 
 fi
 
 #
