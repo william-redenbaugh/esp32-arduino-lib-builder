@@ -24,17 +24,17 @@ if [ $? -ne 0 ]; then exit 1; fi
 cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$AR_COMPS/esp32-camera/driver/include/"
 
 #
-# CLONE/UPDATE ESP-LITTLEFS v1.5.5 commit 9eeac09...
+# CLONE/UPDATE ESP-LITTLEFS v1.9.0 commit fb8514c2...
 #
 echo "Updating ESP-LITTLEFS..."
 if [ ! -d "$AR_COMPS/esp_littlefs" ]; then
 	git clone $LITTLEFS_REPO_URL "$AR_COMPS/esp_littlefs"
- 	git -C "$AR_COMPS/esp_littlefs" checkout 9eeac09c9c250643a32df47ea870dae2dd042648
+ 	git -C "$AR_COMPS/esp_littlefs" checkout fb8514c2e0f786c1c747c6061b56e056119f69b2
         git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
 else
 	git -C "$AR_COMPS/esp_littlefs" fetch
 	git -C "$AR_COMPS/esp_littlefs" pull --ff-only
-        git -C "$AR_COMPS/esp_littlefs" checkout 9eeac09c9c250643a32df47ea870dae2dd042648
+        git -C "$AR_COMPS/esp_littlefs" checkout fb8514c2e0f786c1c747c6061b56e056119f69b2
         git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
 fi
 if [ $? -ne 0 ]; then exit 1; fi
