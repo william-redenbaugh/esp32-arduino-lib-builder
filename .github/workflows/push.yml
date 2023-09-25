@@ -1,4 +1,4 @@
-name: IDF 5.1 feature/eth_spi and littleFS v1.9.0 
+name: IDF 5.1 feature/eth_spi and littleFS with feature grow
 on:
   workflow_dispatch:  # Manually start a workflow
 
