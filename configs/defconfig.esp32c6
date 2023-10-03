@@ -1,3 +1,6 @@
+# C6 has full Newlib in Rom
+# CONFIG_NEWLIB_NANO_FORMAT is not set
+
 #
 # Bluetooth
 #
