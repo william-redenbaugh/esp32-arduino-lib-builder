@@ -9,6 +9,11 @@ if [ -z $IDF_BRANCH ]; then
     IDF_BRANCH="release/v5.1"
 fi
 
+# Arduino branch to use
+if [ -z $AR_BRANCH ]; then
+    AR_BRANCH="feature/eth_spi"
+fi
+
 if [ -z $AR_PR_TARGET_BRANCH ]; then
     # Temporary to get CI working. original is master
     AR_PR_TARGET_BRANCH="esp-idf-v5.1-libs"
@@ -27,11 +32,6 @@ fi
 
 # Owner of the target ESP32 Arduino repository
 AR_USER="tasmota"
-
-# Arduino branch to use
-if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="feature/eth_spi"
-fi
 
 # IDF commit to use / Nimble fails in actual release/v5.1
 #IDF_COMMIT="707b7039850844173e46eb634081a37bbbadaa9b"
