@@ -11,7 +11,7 @@ fi
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="feature/eth_spi"
+    AR_BRANCH="main"
 fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
