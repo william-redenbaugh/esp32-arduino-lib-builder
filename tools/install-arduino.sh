@@ -56,6 +56,7 @@ rm -rf "$AR_COMPS/arduino/libraries/BLE"
 rm -rf "$AR_COMPS/arduino/libraries/SimpleBLE"
 rm -rf "$AR_COMPS/arduino/libraries/WiFiProv"
 rm -rf "$AR_COMPS/arduino/libraries/ESP32"
+rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
 
 #
 # CLONE/UPDATE ESP32-ARDUINO-LIBS
