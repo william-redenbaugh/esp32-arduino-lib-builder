@@ -22,6 +22,7 @@ rm -rf arduino-esp32/libraries/SPIFFS
 rm -rf arduino-esp32/libraries/BLE
 rm -rf arduino-esp32/libraries/SimpleBLE
 rm -rf arduino-esp32/libraries/WiFiProv
+rm -rf arduino-esp32/libraries/TFLiteMicro
 rm -rf arduino-esp32/libraries/ESP32
 rm -rf arduino-esp32/package
 rm -rf arduino-esp32/tools/esp32-arduino-libs
