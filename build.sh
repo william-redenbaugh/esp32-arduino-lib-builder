@@ -107,10 +107,6 @@ else
     source ./tools/config.sh
 fi
 
-if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-    rm -rf ./managed_components/espressif__esp-sr/.component_hash
-fi
-
 if [ "$BUILD_TYPE" != "all" ]; then
     if [ "$TARGET" = "all" ]; then
         echo "ERROR: You need to specify target for non-default builds"
@@ -185,10 +181,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         idf_libs_configs="$idf_libs_configs;configs/defconfig.$defconf"
     done
 
-    if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-        rm -rf ./managed_components/espressif__esp-sr/.component_hash
-    fi
-
     echo "* Build IDF-Libs: $idf_libs_configs"
     rm -rf build sdkconfig
     idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf_libs
@@ -200,10 +192,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         for defconf in `echo "$boot_conf" | jq -c '.[]' | tr -d '"'`; do
             bootloader_configs="$bootloader_configs;configs/defconfig.$defconf";
         done
-
-        if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-            rm -rf ./managed_components/espressif__esp-sr/.component_hash
-        fi
 
         echo "* Build BootLoader: $bootloader_configs"
         rm -rf build sdkconfig
@@ -217,10 +205,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         for defconf in `echo "$mem_conf" | jq -c '.[]' | tr -d '"'`; do
             mem_configs="$mem_configs;configs/defconfig.$defconf";
         done
-
-        if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-            rm -rf ./managed_components/espressif__esp-sr/.component_hash
-        fi
 
         echo "* Build Memory Variant: $mem_configs"
         rm -rf build sdkconfig
