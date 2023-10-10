@@ -1,4 +1,4 @@
-name: IDF 5.1 feature/eth_spi and littleFS with feature grow
+name: IDF 5.1 Arduino
 on:
   workflow_dispatch:  # Manually start a workflow
 
