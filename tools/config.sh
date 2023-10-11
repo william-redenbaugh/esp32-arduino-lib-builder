@@ -33,7 +33,7 @@ fi
 # Owner of the target ESP32 Arduino repository
 AR_USER="tasmota"
 
-# IDF commit to use / Nimble fails in actual release/v5.1
+# IDF commit to use
 IDF_COMMIT="ec31b4d09d3da05001648eaa58aa582c5cc923c8"
 
 # Arduino commit to use
