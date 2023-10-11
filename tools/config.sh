@@ -34,7 +34,7 @@ fi
 AR_USER="tasmota"
 
 # IDF commit to use / Nimble fails in actual release/v5.1
-#IDF_COMMIT="707b7039850844173e46eb634081a37bbbadaa9b"
+IDF_COMMIT="ec31b4d09d3da05001648eaa58aa582c5cc923c8"
 
 # Arduino commit to use
 #AR_COMMIT=""
