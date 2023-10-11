@@ -6,7 +6,7 @@ if [ -z $IDF_PATH ]; then
 fi
 
 if [ -z $IDF_BRANCH ]; then
-    IDF_BRANCH="release/v5.1"
+    IDF_BRANCH="v5.1.1.231007"
 fi
 
 # Arduino branch to use
@@ -34,7 +34,7 @@ fi
 AR_USER="tasmota"
 
 # IDF commit to use
-IDF_COMMIT="ec31b4d09d3da05001648eaa58aa582c5cc923c8"
+#IDF_COMMIT="ec31b4d09d3da05001648eaa58aa582c5cc923c8"
 
 # Arduino commit to use
 #AR_COMMIT=""
