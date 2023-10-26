@@ -61,6 +61,7 @@ rm -rf "$AR_COMPS/arduino/libraries/WiFiClientSecure"
 rm -rf "$AR_COMPS/arduino/libraries/ESP32"
 rm -rf "$AR_COMPS/arduino/libraries/ESP_SR"
 rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
+rm -rf "$AR_COMPS/**/examples"
 
 #
 # CLONE/UPDATE ESP32-ARDUINO-LIBS
