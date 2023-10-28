@@ -6,7 +6,7 @@ if [ -z $IDF_PATH ]; then
 fi
 
 if [ -z $IDF_BRANCH ]; then
-    IDF_BRANCH="release/v5.1_no_SECP256R1"
+    IDF_BRANCH="release/v5.1"
 fi
 
 # Arduino branch to use
