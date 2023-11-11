@@ -2,7 +2,7 @@ dependencies:
   # Required IDF version
   idf: ">=5.1"
   espressif/esp32-camera:
-    version: "*"
+    version: "master"
     git: https://github.com/espressif/esp32-camera.git
     require: public
   
