@@ -21,7 +21,7 @@ TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
 #
 # Arduino needs cam_hal.h from esp32-camera in include folder
 #
-cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$AR_COMPS/esp32-camera/driver/include/"
+# cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$AR_COMPS/esp32-camera/driver/include/"
 
 #
 # CLONE/UPDATE ESP-LITTLEFS v1.10.0 commit 032f9...
