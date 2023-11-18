@@ -87,6 +87,7 @@ shift $((OPTIND -1))
 CONFIGS=$@
 
 mkdir -p dist
+rm -rf dependencies.lock
 
 if [ $SKIP_ENV -eq 0 ]; then
     echo "* Installing/Updating ESP-IDF and all components..."
@@ -212,11 +213,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         if [ $? -ne 0 ]; then exit 1; fi
     done
 done
-
-#
-# Arduino needs cam_hal.h from esp32-camera in include folder
-#
-cp "$AR_MAN_COMPS/espressif__esp32-camera/driver/private_include/cam_hal.h" "$AR_MAN_COMPS/espressif__esp32-camera/driver/include/"
 
 # update package_esp32_index.template.json
 if [ "$BUILD_TYPE" = "all" ]; then
