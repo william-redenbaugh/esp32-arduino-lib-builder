@@ -5,6 +5,7 @@ source ./tools/config.sh
 CAMERA_REPO_URL="https://github.com/espressif/esp32-camera.git"
 LITTLEFS_REPO_URL="https://github.com/joltwallet/esp_littlefs.git"
 TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
+TINYUSB_REPO_DIR="$AR_COMPS/arduino_tinyusb/tinyusb"
 
 #
 # CLONE/UPDATE ESP32-CAMERA
@@ -43,10 +44,10 @@ cp "$AR_COMPS/esp32-camera/driver/private_include/cam_hal.h" "$AR_COMPS/esp32-ca
 # CLONE/UPDATE TINYUSB
 #
 echo "Updating TinyUSB..."
-if [ ! -d "$AR_COMPS/arduino_tinyusb/tinyusb" ]; then
-	git clone $TINYUSB_REPO_URL "$AR_COMPS/arduino_tinyusb/tinyusb"
+if [ ! -d "$TINYUSB_REPO_DIR" ]; then
+    git clone "$TINYUSB_REPO_URL" "$TINYUSB_REPO_DIR"
 else
-	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" fetch && \
-	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" pull --ff-only
+    git -C "$TINYUSB_REPO_DIR" fetch && \
+    git -C "$TINYUSB_REPO_DIR" pull --ff-only
 fi
 if [ $? -ne 0 ]; then exit 1; fi
