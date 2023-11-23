@@ -489,7 +489,7 @@ fi
 cp -f "sdkconfig" "$AR_SDK/sdkconfig"
 
 # dependencies.lock
-cp -f "dependencies.lock" "$AR_SDK/dependencies.lock
+cp -f "dependencies.lock" "$AR_SDK/dependencies.lock"
 
 # gen_esp32part.py
 # cp "$IDF_PATH/components/partition_table/gen_esp32part.py" "$AR_GEN_PART_PY"
