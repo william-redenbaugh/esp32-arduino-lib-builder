@@ -138,26 +138,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
 fi
 
 rm -rf build sdkconfig out
-
-# Add components version info
-mkdir -p "$AR_TOOLS/esp32-arduino-libs" && rm -rf version.txt && rm -rf "$AR_TOOLS/esp32-arduino-libs/versions.txt"
-component_version="esp-idf: "$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)" "$(git -C "$IDF_PATH" rev-parse --short HEAD)
-echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
-for component in `ls "$AR_COMPS"`; do
-    if [ -d "$AR_COMPS/$component/.git" ] || [ -d "$AR_COMPS/$component/.github" ]; then
-        component_version="$component: "$(git -C "$AR_COMPS/$component" symbolic-ref --short HEAD || git -C "$AR_COMPS/$component" tag --points-at HEAD)" "$(git -C "$AR_COMPS/$component" rev-parse --short HEAD)
-        echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
-    fi
-done
-component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
-echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
-
-# Add release-info
-rm -rf release-info.txt
-IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
-AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
-echo "Framework built from $IDF_REPO branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
-
+mkdir -p "$AR_TOOLS/esp32-arduino-libs"
 
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
 for target_json in `jq -c '.targets[]' configs/builds.json`; do
@@ -212,6 +193,37 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$mem_configs" mem_variant
         if [ $? -ne 0 ]; then exit 1; fi
     done
+done
+
+#
+# Add components version info
+#
+rm -rf "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+# The lib-builder version
+component_version="lib-builder: "$(git -C "$AR_ROOT" symbolic-ref --short HEAD || git -C "$AR_ROOT" tag --points-at HEAD)" "$(git -C "$AR_ROOT" rev-parse --short HEAD)
+echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+# ESP-IDF version
+component_version="esp-idf: "$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)" "$(git -C "$IDF_PATH" rev-parse --short HEAD)
+echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+# components version
+for component in `ls "$AR_COMPS"`; do
+    if [ -d "$AR_COMPS/$component/.git" ]; then
+        component_version="$component: "$(git -C "$AR_COMPS/$component" symbolic-ref --short HEAD || git -C "$AR_COMPS/$component" tag --points-at HEAD)" "$(git -C "$AR_COMPS/$component" rev-parse --short HEAD)
+        echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+    fi
+done
+# TinyUSB version
+component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
+echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+# managed components version
+for component in `ls "$AR_MANAGED_COMPS"`; do
+    if [ -d "$AR_MANAGED_COMPS/$component/.git" ]; then
+        component_version="$component: "$(git -C "$AR_MANAGED_COMPS/$component" symbolic-ref --short HEAD || git -C "$AR_MANAGED_COMPS/$component" tag --points-at HEAD)" "$(git -C "$AR_MANAGED_COMPS/$component" rev-parse --short HEAD)
+        echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+    elif [ -f "$AR_MANAGED_COMPS/$component/idf_component.yml" ]; then
+        component_version="$component: "$(cat "$AR_MANAGED_COMPS/$component/idf_component.yml" | grep "^version: " | cut -d ' ' -f 2)
+        echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
+    fi
 done
 
 # update package_esp32_index.template.json
